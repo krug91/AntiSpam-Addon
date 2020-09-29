@@ -39,6 +39,7 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", function(self,event,msg,author)
     return MyChatFilter(self,event,msg,author)
 end)
 
+--just a comment
 
 function MyChatFilter(self,event,msg,author)
     for index, value in ipairs(AntiSpam_Database.global.bannedWords) do

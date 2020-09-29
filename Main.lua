@@ -11,7 +11,7 @@ IsUiOpened = false
 
 function AntiSpam:OnInitialize()
   AntiSpam_Database = LibStub("AceDB-3.0"):New("AntiSpamDB",defaults, true)
-  AntiSpam:RegisterChatCommand("antispamui", "AntiSpamCommand")
+  AntiSpam:RegisterChatCommand("antispam", "AntiSpamCommand")
 end
 
 function AntiSpam:AntiSpamCommand(input)

@@ -1,5 +1,4 @@
 local chatEvents = {
-    --"CHAT_MSG_CHANNEL",
     "CHAT_MSG_GUILD",
     "CHAT_MSG_OFFICER",
     "CHAT_MSG_PARTY",

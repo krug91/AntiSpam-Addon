@@ -11,8 +11,24 @@ local chatEvents = {
     "CHAT_MSG_CHANNEL"
 }
 
+local function checkIfPlayerIsOnIgnoreList(author)
+    
+    local indexOfDash = string.find(author,"-")    
+    local player = string.sub(author, 1 ,indexOfDash -1)
+
+    for index, value in ipairs(AntiSpam_Database.locale.ingoredPlayers) do
+        if string.find(player:lower(), value:lower()) then
+            return true
+        end
+    end
+end  
 
 local function MyChatFilter(self,event,msg,author)
+    local playerFound = checkIfPlayerIsOnIgnoreList(author)
+    if playerFound then
+        return playerFound
+    end
+
     for index, value in ipairs(AntiSpam_Database.global.bannedWords) do
         if string.find(msg:lower(), value:lower()) then
             return true
@@ -20,8 +36,10 @@ local function MyChatFilter(self,event,msg,author)
     end
     return false
   end
-  
+
+
+
   for index, value in ipairs (chatEvents) do
     ChatFrame_AddMessageEventFilter(value, MyChatFilter)
   end
-  
+

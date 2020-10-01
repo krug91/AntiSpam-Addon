@@ -172,7 +172,7 @@ function AntiSpam_Gui:ShowGui()
             IsUiOpened = false
        end)
        frame:SetTitle("AntiSpam")
-       frame:SetStatusText("AntiSpam-0.1")
+       frame:SetStatusText("AntiSpam-0.2")
        frame:SetWidth(550)
        frame:SetHeight(530)
        frame:SetLayout("Flow")

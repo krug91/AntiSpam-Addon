@@ -45,11 +45,10 @@ local function IgnoreByWordTabUI()
       editBox:SetLabel("Insert Name to Add:");
       editBox:SetRelativeWidth(0.4);
       editBox:SetCallback("OnEnterPressed", function()
-            AddFunctionality(AntiSpam_Database.locale.ingoredPlayers,editBox,GridDataIgnoreByName);
+            AddFunctionality(AntiSpam_Database.locale.bannedWords,editBox,GridDataIgnoreByName);
             GridComponent:SetData(GridDataIgnoreByName, true);
             editBox:SetText("");
-      end
-      )
+      end)
       editBox:DisableButton(true);
       widgetList.tabGroup:AddChild(editBox);
 
@@ -146,8 +145,8 @@ local function IgnoreByName()
             AddFunctionality(AntiSpam_Database.locale.ingoredPlayers,editBox,GridDataIgnoreByName);
             GridComponent:SetData(GridDataIgnoreByName, true);
             editBox:SetText("");
-      end
-      )
+      end)
+      editBox:DisableButton(true);
       widgetList.tabGroup:AddChild(editBox);
 
       
@@ -168,7 +167,7 @@ local function IgnoreByName()
             GridComponent:SetData(GridDataIgnoreByName, true);
             editBox:SetText("");
        end);
-       widgetList.tabGroup:AddChild(addButton) ;
+       widgetList.tabGroup:AddChild(addButton);
 
        
        emptyBox2:SetRelativeWidth(0.8);
@@ -237,6 +236,11 @@ function AntiSpam_Gui:ShowGui()
       local frame = Gui:Create("Frame");
       local tabGroup = Gui:Create("TabGroup");
       if not GridInitialized then
+            --On Escape button close
+            _G["AntiSpamUi"] = frame.frame;
+            table.insert(UISpecialFrames, "AntiSpamUi")
+            -- On Escape button close
+            
             local ignoreGrid = Grid:CreateST(ignoreByKeywordCols, nil, nil, nil, tabGroup.frame);
             GridComponent = ignoreGrid;
             for index,value in ipairs(AntiSpam_Database.global.bannedWords) do
@@ -250,9 +254,9 @@ function AntiSpam_Gui:ShowGui()
       end
       
       GridInitialized = true;
-
       widgetList.tabGroup = tabGroup;
       GridComponent = GridComponent;
+
       --Init Tabs
       local tabs = {{value = "IGNORE_BY_KEYWORD", text = "Ignore by keyword"},{value = "IGNORE_BY_NAME", text = "Ignore by character name"}};
 

@@ -250,9 +250,9 @@ function AntiSpam_Gui:ShowGui()
       end
       
       GridInitialized = true;
-
       widgetList.tabGroup = tabGroup;
       GridComponent = GridComponent;
+      
       --Init Tabs
       local tabs = {{value = "IGNORE_BY_KEYWORD", text = "Ignore by keyword"},{value = "IGNORE_BY_NAME", text = "Ignore by character name"}};
 

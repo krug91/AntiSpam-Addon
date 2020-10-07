@@ -1,7 +1,7 @@
 ## Interface: 80300
 ## Title: AntiSpam
 ## Author: Krug 
-## Version: 0.1
+## Version: 1.2
 
 ## SavedVariables: AntiSpamDB
 ## LoadOnDemand: 0

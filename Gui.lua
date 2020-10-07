@@ -45,8 +45,8 @@ local function IgnoreByWordTabUI()
       editBox:SetLabel("Insert Name to Add:");
       editBox:SetRelativeWidth(0.4);
       editBox:SetCallback("OnEnterPressed", function()
-            AddFunctionality(AntiSpam_Database.locale.bannedWords,editBox,GridDataIgnoreByName);
-            GridComponent:SetData(GridDataIgnoreByName, true);
+            AddFunctionality(AntiSpam_Database.global.bannedWords,editBox,GridDataIgnoreByKeyWord);
+            GridComponent:SetData(GridDataIgnoreByKeyWord, true);
             editBox:SetText("");
       end)
       editBox:DisableButton(true);

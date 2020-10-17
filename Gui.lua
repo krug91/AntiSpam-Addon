@@ -42,7 +42,7 @@ local function IgnoreByWordTabUI()
       local removeAllButton = Gui:Create("Button");
 
       -- Add Word  textBox
-      editBox:SetLabel("Insert Name to Add:");
+      editBox:SetLabel("Insert Keyword to Add:");
       editBox:SetRelativeWidth(0.4);
       editBox:SetCallback("OnEnterPressed", function()
             AddFunctionality(AntiSpam_Database.global.bannedWords,editBox,GridDataIgnoreByKeyWord);
@@ -256,7 +256,6 @@ function AntiSpam_Gui:ShowGui()
       GridInitialized = true;
       widgetList.tabGroup = tabGroup;
       GridComponent = GridComponent;
-
       --Init Tabs
       local tabs = {{value = "IGNORE_BY_KEYWORD", text = "Ignore by keyword"},{value = "IGNORE_BY_NAME", text = "Ignore by character name"}};
 

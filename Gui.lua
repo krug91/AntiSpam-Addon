@@ -42,7 +42,7 @@ local function IgnoreByWordTabUI()
       local removeAllButton = Gui:Create("Button");
 
       -- Add Word  textBox
-      editBox:SetLabel("Insert Name to Add:");
+      editBox:SetLabel("Insert Keyword to Add:");
       editBox:SetRelativeWidth(0.4);
       editBox:SetCallback("OnEnterPressed", function()
             AddFunctionality(AntiSpam_Database.locale.ingoredPlayers,editBox,GridDataIgnoreByName);

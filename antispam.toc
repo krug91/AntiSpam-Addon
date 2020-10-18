@@ -8,6 +8,6 @@
 ## DefaultState: Enabled
 
 embeds.xml
-Filtering.lua
 Gui.lua
 Main.lua
+Filtering.lua

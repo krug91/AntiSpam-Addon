@@ -19,7 +19,7 @@ local function checkIfPlayerIsOnIgnoreList(author)
     if author ~= nil then
         local indexOfDash = string.find(author,"-")
         local player = string.sub(author, 1 ,indexOfDash -1)
-        for index, value in ipairs(AntiSpam_Database.locale.ingoredPlayers) do
+        for index, value in ipairs(AntiSpam_Database.char.ingoredPlayers) do
             if string.find(player:lower(), value:lower()) then
                 return true
             end
@@ -28,7 +28,7 @@ local function checkIfPlayerIsOnIgnoreList(author)
 end  
 
 local function ChatTypeIsRegistered(event)
-    for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChatsForFiltering) do
+    for index,value in ipairs(AntiSpam_Database.char.Options.selectedChatsForFiltering) do
         if value == event then
             return true;
         end
@@ -38,7 +38,7 @@ local function ChatTypeIsRegistered(event)
 end
 
 local function ChannelIsRegistered(channel)
-    for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChannelsForFiltering)do
+    for index,value in ipairs(AntiSpam_Database.char.Options.selectedChannelsForFiltering)do
         if value:lower() == channel:lower() then
             return true;
         end
@@ -70,7 +70,6 @@ function MyChatFilter(self,event,msg,author,arg3, arg4,arg5,arg6,arg7,arg8,arg9)
   end
 
 function ChannelFilter(self,event,msg,author,arg3, arg4,arg5,arg6,arg7,arg8,arg9)
-
     local indexOfDash = string.find(arg9,"-");
     local channel;
     local playerFound = checkIfPlayerIsOnIgnoreList(author);
@@ -82,11 +81,14 @@ function ChannelFilter(self,event,msg,author,arg3, arg4,arg5,arg6,arg7,arg8,arg9
     if playerFound then
         return true;
     end
-    if ChannelIsRegistered(channel)then
-        for index, value in ipairs(AntiSpam_Database.global.bannedWords) do
-            if string.find(msg:lower(), value:lower()) then
-                return true
-            end 
+    
+    if ChatTypeIsRegistered(event)then
+        if ChannelIsRegistered(channel)then
+            for index, value in ipairs(AntiSpam_Database.global.bannedWords) do
+                if string.find(msg:lower(), value:lower()) then
+                    return true
+                end 
+            end
         end
     end
     return false
@@ -95,8 +97,8 @@ end
 function WhisperFilter(self,event,msg,author)
     local playerFound = checkIfPlayerIsOnIgnoreList(author);
     if playerFound then
-        if AntiSpam_Database.locale.Options.replyMessageIsActivated and (AntiSpam_Database.locale.Options.replyMessage ~= "" and  AntiSpam_Database.locale.Options.replyMessage ~= nil and not whisperSended)then
-            SendChatMessage(AntiSpam_Database.locale.Options.replyMessage, "WHISPER", "Common", author)
+        if AntiSpam_Database.char.Options.replyMessageIsActivated and (AntiSpam_Database.char.Options.replyMessage ~= "" and  AntiSpam_Database.char.Options.replyMessage ~= nil and not whisperSended)then
+            SendChatMessage(AntiSpam_Database.char.Options.replyMessage, "WHISPER", "Common", author)
             whisperSended = true;
         end
 

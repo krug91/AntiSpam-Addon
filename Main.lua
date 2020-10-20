@@ -5,9 +5,10 @@ local defaults = {
   global = {
       bannedWords = {},
   },
-  locale = {
+  char = {
     ingoredPlayers = {},
     Options = {
+      hasInitData,
       replyMessageIsActivated,
       replyMessage,
       messageToSendWhenIgnorePlayerIsActivated,
@@ -27,15 +28,44 @@ GridDataIgnoreByKeyWord = {};
 GridDataIgnoreByName = {};
 GridComponent = {}
 
+local function tableContains(table, element)
+  for index,value in ipairs(table)do
+    if  value == element then
+      return true;
+    end
+  end
+  return false;
+end
+
+local function InitData()
+    if not tableContains(AntiSpam_Database.char.Options.selectedChannelsForFiltering, "Trade")then
+     table.insert(AntiSpam_Database.char.Options.selectedChannelsForFiltering, "Trade");
+    end
+    if not tableContains(AntiSpam_Database.char.Options.selectedChatsForFiltering, "CHAT_MSG_CHANNEL")then
+     table.insert(AntiSpam_Database.char.Options.selectedChatsForFiltering, "CHAT_MSG_CHANNEL");
+    end
+    if not tableContains(AntiSpam_Database.char.Options.selectedChatsForFiltering,"CHAT_MSG_WHISPER")then
+      table.insert(AntiSpam_Database.char.Options.selectedChatsForFiltering, "CHAT_MSG_WHISPER");
+    end
+     AntiSpam_Database.char.Options.replyMessageIsActivated = true;
+     AntiSpam_Database.char.Options.replyMessage = "You are ignored don't bother to send messages.";
+     AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayer = "You have been ignored with Anti_Spam Addon!!";
+     AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated = true;
+end
+
+
 function AntiSpam:OnInitialize()
   AntiSpam_Database = LibStub("AceDB-3.0"):New("AntiSpamDB",defaults, true);
   AntiSpam:RegisterChatCommand("antispam", "AntiSpamCommand");
   AntiSpam:Print("Hello and thanks for using AntiSpam addon. If you have any suggestion don't hesitate to write it in the comments")
   AntiSpam:Print("for UI type /antispam")
 
-  table.insert(AntiSpam_Database.locale.Options.selectedChatsForFiltering, "CHAT_MSG_WHISPER");
+  if AntiSpam_Database.char.Options.hasInitData == nil then
+    InitData();
+    AntiSpam_Database.char.Options.hasInitData = true;
+  end
 
-  for index, value in ipairs (AntiSpam_Database.locale.Options.selectedChatsForFiltering) do
+  for index, value in ipairs (AntiSpam_Database.char.Options.selectedChatsForFiltering) do
     if value == "CHAT_MSG_CHANNEL"then
       ChatFrame_AddMessageEventFilter(value, ChannelFilter)  
     elseif value == "CHAT_MSG_WHISPER" then
@@ -52,5 +82,4 @@ function AntiSpam:AntiSpamCommand(input)
     IsUiOpened = true;
   end
 end
-
 

@@ -165,10 +165,10 @@ local function IgnoreByName()
       editBox:SetLabel("Insert Name to Add:");
       editBox:SetRelativeWidth(0.4);
       editBox:SetCallback("OnEnterPressed", function()
-            AddFunctionality(AntiSpam_Database.locale.ingoredPlayers,editBox,GridDataIgnoreByName);
+            AddFunctionality(AntiSpam_Database.char.ingoredPlayers,editBox,GridDataIgnoreByName);
             GridComponent:SetData(GridDataIgnoreByName, true);
-            if AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated then
-                  SendChatMessage(AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayer, "WHISPER", "Common", editBox:GetText())
+            if AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated then
+                  SendChatMessage(AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayer, "WHISPER", "Common", editBox:GetText())
             end
             editBox:SetText("");
       end)
@@ -188,10 +188,10 @@ local function IgnoreByName()
        addButton:SetText("Add");
        addButton:SetCallback("OnClick",
        function(event,text)
-            AddFunctionality(AntiSpam_Database.locale.ingoredPlayers,editBox,GridDataIgnoreByName);
+            AddFunctionality(AntiSpam_Database.char.ingoredPlayers,editBox,GridDataIgnoreByName);
             GridComponent:SetData(GridDataIgnoreByName, true);
-            if AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated then
-                  SendChatMessage(AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayer, "WHISPER", "Common", editBox:GetText())
+            if AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated then
+                  SendChatMessage(AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayer, "WHISPER", "Common", editBox:GetText())
             end
             editBox:SetText("");
        end);
@@ -228,7 +228,7 @@ local function IgnoreByName()
               local selectedRow = GridComponent:GetSelection();
               if selectedRow ~= nil then
                   table.remove(GridDataIgnoreByName, selectedRow);
-                  table.remove(AntiSpam_Database.locale.ingoredPlayers, GridComponent:GetSelection());
+                  table.remove(AntiSpam_Database.char.ingoredPlayers, GridComponent:GetSelection());
                   GridComponent:SetData(GridDataIgnoreByName, true);
                   GridComponent:ClearSelection();
               end
@@ -239,7 +239,7 @@ local function IgnoreByName()
        removeAllButton:SetText("Remove All");
        removeAllButton:SetCallback("OnClick", function ()
             GridDataIgnoreByName = {}
-            AntiSpam_Database.locale.ingoredPlayers = {}
+            AntiSpam_Database.char.ingoredPlayers = {}
             GridComponent:SetData(GridDataIgnoreByName, true)
        end);
        widgetList.tabGroup:AddChild(removeAllButton);
@@ -286,20 +286,20 @@ local function Options()
 
       --replyMessageEditBox
       replyMessageEditBox:SetLabel("Set the reply message.");
-      replyMessageEditBox:SetDisabled(not AntiSpam_Database.locale.Options.replyMessageIsActivated);
-      if not AntiSpam_Database.locale.Options.replyMessageIsActivated then
+      replyMessageEditBox:SetDisabled(not AntiSpam_Database.char.Options.replyMessageIsActivated);
+      if not AntiSpam_Database.char.Options.replyMessageIsActivated then
             replyMessageEditBox:SetText("Disabled");
       else
-            replyMessageEditBox:SetText(AntiSpam_Database.locale.Options.replyMessage);
+            replyMessageEditBox:SetText(AntiSpam_Database.char.Options.replyMessage);
       end
       
       replyMessageEditBox:SetCallback("OnEnterPressed", function()
-            AntiSpam_Database.locale.Options.replyMessage = replyMessageEditBox:GetText();
+            AntiSpam_Database.char.Options.replyMessage = replyMessageEditBox:GetText();
       end)
       widgetList.tabGroup:AddChild(replyMessageEditBox);
 
       --replyMessageCheckBox
-      replyMessageOptionIsEnabled:SetValue(AntiSpam_Database.locale.Options.replyMessageIsActivated);
+      replyMessageOptionIsEnabled:SetValue(AntiSpam_Database.char.Options.replyMessageIsActivated);
       replyMessageOptionIsEnabled:SetType("checkbox");
       replyMessageOptionIsEnabled:SetLabel("Reply message");
       replyMessageOptionIsEnabled:SetCallback("OnEnter", function() 
@@ -309,13 +309,13 @@ local function Options()
             replyMessageOptionIsEnabled:SetDescription("");
       end)
       replyMessageOptionIsEnabled:SetCallback("OnValueChanged", function()
-            AntiSpam_Database.locale.Options.replyMessageIsActivated = replyMessageOptionIsEnabled:GetValue();
-            if AntiSpam_Database.locale.Options.replyMessageIsActivated then
-                  replyMessageEditBox:SetText(AntiSpam_Database.locale.Options.replyMessage);
+            AntiSpam_Database.char.Options.replyMessageIsActivated = replyMessageOptionIsEnabled:GetValue();
+            if AntiSpam_Database.char.Options.replyMessageIsActivated then
+                  replyMessageEditBox:SetText(AntiSpam_Database.char.Options.replyMessage);
             else
                   replyMessageEditBox:SetText("Disabled");
             end
-            replyMessageEditBox:SetDisabled(not AntiSpam_Database.locale.Options.replyMessageIsActivated);
+            replyMessageEditBox:SetDisabled(not AntiSpam_Database.char.Options.replyMessageIsActivated);
       end)
       widgetList.tabGroup:AddChild(replyMessageOptionIsEnabled);
 
@@ -326,22 +326,22 @@ local function Options()
 
       --messageToSendWhenIgnorePlayer
       messageToSendWhenIgnorePlayer:SetLabel("Set message.");
-      messageToSendWhenIgnorePlayer:SetDisabled(not AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated);
-      if not AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated then
+      messageToSendWhenIgnorePlayer:SetDisabled(not AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated);
+      if not AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated then
             messageToSendWhenIgnorePlayer:SetText("Disabled");
       else
-            messageToSendWhenIgnorePlayer:SetText(AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayer);
+            messageToSendWhenIgnorePlayer:SetText(AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayer);
       end
       
       messageToSendWhenIgnorePlayer:SetCallback("OnEnterPressed", function()
-            AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayer = messageToSendWhenIgnorePlayer:GetText();
+            AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayer = messageToSendWhenIgnorePlayer:GetText();
       end)
       widgetList.tabGroup:AddChild(messageToSendWhenIgnorePlayer);
 
 
 
       --messageToSendWhenIgnorePlayerIsActivated CheckBox
-      messageToSendWhenIgnorePlayerIsActivated:SetValue(AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated);
+      messageToSendWhenIgnorePlayerIsActivated:SetValue(AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated);
       messageToSendWhenIgnorePlayerIsActivated:SetType("checkbox");
       messageToSendWhenIgnorePlayerIsActivated:SetLabel("Send message at ignore");
       messageToSendWhenIgnorePlayerIsActivated:SetCallback("OnEnter", function() 
@@ -351,13 +351,13 @@ local function Options()
             messageToSendWhenIgnorePlayerIsActivated:SetDescription("");
       end)
       messageToSendWhenIgnorePlayerIsActivated:SetCallback("OnValueChanged", function()
-            AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated = messageToSendWhenIgnorePlayerIsActivated:GetValue();
-            if AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated then
-                  messageToSendWhenIgnorePlayer:SetText(AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayer);
+            AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated = messageToSendWhenIgnorePlayerIsActivated:GetValue();
+            if AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated then
+                  messageToSendWhenIgnorePlayer:SetText(AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayer);
             else
                   messageToSendWhenIgnorePlayer:SetText("Disabled");
             end
-            messageToSendWhenIgnorePlayer:SetDisabled(not AntiSpam_Database.locale.Options.messageToSendWhenIgnorePlayerIsActivated);
+            messageToSendWhenIgnorePlayer:SetDisabled(not AntiSpam_Database.char.Options.messageToSendWhenIgnorePlayerIsActivated);
       end)
       widgetList.tabGroup:AddChild(messageToSendWhenIgnorePlayerIsActivated);
 
@@ -379,8 +379,8 @@ local function Options()
        chatSelectDropDown:SetMultiselect(true);
        chatSelectDropDown:SetLabel("Chat types");
        --Set selected items
-       if table.getn(AntiSpam_Database.locale.Options.selectedChatsForFiltering) > 0 then
-            for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChatsForFiltering) do
+       if table.getn(AntiSpam_Database.char.Options.selectedChatsForFiltering) > 0 then
+            for index,value in ipairs(AntiSpam_Database.char.Options.selectedChatsForFiltering) do
                   if value == "CHAT_MSG_CHANNEL" then
                         disableChannelDropDown = false;
                   end
@@ -393,7 +393,7 @@ local function Options()
                   local setTextForChannelSelect;
                   if key == "CHAT_MSG_CHANNEL" then
                         channelSelectDropDown:SetDisabled(false);
-                        for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChannelsForFiltering) do
+                        for index,value in ipairs(AntiSpam_Database.char.Options.selectedChannelsForFiltering) do
                               if index == 1 then
                                     setTextForChannelSelect = value;
                               else
@@ -403,15 +403,15 @@ local function Options()
 
                         channelSelectDropDown:SetText(setTextForChannelSelect);
                   end
-                  table.insert(AntiSpam_Database.locale.Options.selectedChatsForFiltering, key);
+                  table.insert(AntiSpam_Database.char.Options.selectedChatsForFiltering, key);
             else
                   if key == "CHAT_MSG_CHANNEL"  then
                         channelSelectDropDown:SetDisabled(true);
                         channelSelectDropDown:SetText("Disabled");
                   end
-                  for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChatsForFiltering) do
+                  for index,value in ipairs(AntiSpam_Database.char.Options.selectedChatsForFiltering) do
                         if value == key then
-                              table.remove(AntiSpam_Database.locale.Options.selectedChatsForFiltering, index);
+                              table.remove(AntiSpam_Database.char.Options.selectedChatsForFiltering, index);
                         end
                   end
             end
@@ -424,18 +424,18 @@ local function Options()
        channelSelectDropDown:SetLabel("Channels");
        channelSelectDropDown:SetDisabled(disableChannelDropDown);
        -- set selected items
-       if table.getn(AntiSpam_Database.locale.Options.selectedChannelsForFiltering) > 0 then
-            for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChannelsForFiltering) do
+       if table.getn(AntiSpam_Database.char.Options.selectedChannelsForFiltering) > 0 then
+            for index,value in ipairs(AntiSpam_Database.char.Options.selectedChannelsForFiltering) do
                   channelSelectDropDown:SetItemValue(value, true);
             end
        end
        channelSelectDropDown:SetCallback("OnValueChanged", function(self, event,key, checked)
             if checked then
-                  table.insert(AntiSpam_Database.locale.Options.selectedChannelsForFiltering, key);
+                  table.insert(AntiSpam_Database.char.Options.selectedChannelsForFiltering, key);
             else
-                  for index,value in ipairs(AntiSpam_Database.locale.Options.selectedChannelsForFiltering) do
+                  for index,value in ipairs(AntiSpam_Database.char.Options.selectedChannelsForFiltering) do
                         if value == key then
-                              table.remove(AntiSpam_Database.locale.Options.selectedChannelsForFiltering, index);
+                              table.remove(AntiSpam_Database.char.Options.selectedChannelsForFiltering, index);
                         end
                   end
             end
@@ -473,7 +473,8 @@ function AntiSpam_Gui:ShowGui()
             for index,value in ipairs(AntiSpam_Database.global.bannedWords) do
                   table.insert(GridDataIgnoreByKeyWord,{value});
             end
-            for index,value in ipairs(AntiSpam_Database.locale.ingoredPlayers) do
+
+            for index,value in ipairs(AntiSpam_Database.char.ingoredPlayers) do
                   table.insert(GridDataIgnoreByName,{value});
             end
 

@@ -1,4 +1,4 @@
-## Interface: 90205
+## Interface: 100000
 ## Title: AntiSpam
 ## Author: Krug 
 ## Version: 1.2
